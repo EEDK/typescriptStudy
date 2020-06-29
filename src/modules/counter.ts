@@ -1,5 +1,4 @@
-//Ts의 변경점 as const를 붙혀줘야함.
-//-> string이 생성되지 않고 실제값 지정
+import { INCREASE, DECREASE, INCREASE_BY } from './actions/actions';
 
 // type or interface
 type CounterState = {
@@ -10,10 +9,6 @@ type CounterState = {
 const initialState: CounterState = {
   count: 0,
 };
-
-const INCREASE = 'counter/INCREASE' as const;
-const DECREASE = 'counter/DECREASE' as const;
-const INCREASE_BY = 'counter/INCREASE_BY' as const;
 
 export const increase = () => ({ type: INCREASE });
 export const decrease = () => ({ type: DECREASE });
@@ -39,5 +34,38 @@ function counter(state: CounterState = initialState, action: CounterAction) {
       return state;
   }
 }
+
+/*function* fetchEntity(entity, apiFn, ...params) {
+  yield put(entity.request(...params));
+  try {
+    const data = yield call(apiFn, ...params);
+    yield put(entity.success(data));
+  } catch (err) {
+    yield put(entity.failure(err.message));
+  }
+}
+
+React Saga
+export const fetchEntity = <
+  R extends Function,
+  S extends Function,
+  F extends Function,
+  Param extends any[],
+  Res
+>(
+  entity: Entity<R, S, F>,
+  api: ApiCall<Param, Res>
+) => {
+  return function*(...p: Param) {
+    yield put(entity.request(...p));
+    try {
+      const data = yield call(api, ...p);
+      yield put(entity.success(data));
+    } catch (err) {
+      yield put(entity.failure(err.message));
+    }
+  };
+};
+*/
 
 export default counter;
