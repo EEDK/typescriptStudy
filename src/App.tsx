@@ -8,10 +8,16 @@ function App() {
 
   // Arrow Function
   const getMovies = async () => {
-    const data = await axios.get(
+    const data: object = await axios.get(
       'https://yts-proxy.now.sh/list_movies.json?sort_by=rating',
+      {
+        validateStatus: function (status) {
+          // 상태 코드가 500 이상일 경우 거부. 나머지(500보다 작은)는 허용.
+          return status < 500;
+        },
+      },
     );
-    setData(data.data);
+    setData(data);
     setLoading(true);
   };
 
